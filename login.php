@@ -120,6 +120,7 @@ if (isset($_POST['login']) && $_POST['login']=="yes") {
                                                 class="form-control form-control-user" id="exampleInputPassword"
                                                 placeholder="Password">
                                         </div>
+
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" name="remember_me" value="yes"
