@@ -24,7 +24,6 @@ include_once('inc/config.php');
     <link href="<?php echo $site_url;?>assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -32,9 +31,6 @@ include_once('inc/config.php');
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
-
-
-
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
@@ -89,8 +85,6 @@ include_once('inc/config.php');
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - User Information -->
