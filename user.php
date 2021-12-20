@@ -2,7 +2,16 @@
 	include_once('inc/user.inc.php');
     include_once('layout/header.php');
 
-?>
+    if (isset($_GET['success']) && $_GET['success']!='') {
+ ?>
+<div class="alert alert-success" role="alert">
+    <?php echo $_GET['success']; ?>
+</div>
+<?php   
+        }
+
+        ?>
+
 
 <!-- Page Heading -->
 <h1 class="h3 mb-4 text-gray-800">Users
@@ -28,9 +37,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php
-
-                
+                <?php 
                 while ($users = mysqli_fetch_assoc($data)) {   
                 ?>
                 <tr>
@@ -49,17 +56,21 @@
                     <td class="text-center"><?php echo $users['age'] ?></td>
                     <td><?php echo $users['create_date'] ?></td>
                     <td class="text-center">
-                        <a href=""><i
+                        <a
+                            href="<?php echo get_site_url('user.php?action=status&user_id='.$users['id'].'&user_status='.$users['status'] ) ?>">
+                            <i
                                 class="fa<?php echo (isset($users['status']) && $users['status']=='1') ? 's' : 'r' ?> fa-check-circle"></i></a>
                     </td>
                     <td class="text-center">
                         <a href="<?php echo get_site_url('add_edit_user.php?action=edit&user_id='.$users['id']) ?>"><i
                                 class="fa fa-edit"></i></a>
-                        <a onclick="return confirm('Are you sure you want to delete this user?');" href="">
+                        <a onclick="return confirm('Are you sure you want to delete this user?');"
+                            href="<?php echo get_site_url('user.php?action=delete&user_id='.$users['id']) ?>">
                             <i class="far fa-trash-alt"></i>
                         </a>
                     </td>
                 </tr>
+
                 <?php } 
                
                if ($data->num_rows==0) {
@@ -73,30 +84,47 @@
             </tbody>
         </table>
         <!-- EOF User list -->
-
-
         <!-- Pagination -->
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item ">
-                    <a class="page-link" href="" aria-label="Previous">
+                <?php
+                 if($current_page == 1) {
+                    $disable = 'disabled';
+                } else {
+                    $disable = 'active';     
+                } 
+                ?>
+                <li class="page-item <?php echo $disable ?>">
+                    <a class="page-link" href="<?php echo $prev_page_url ?>" aria-label="Previous">
+
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
+                <?php 
+                 for($i=1;$i<=$total_page;$i++) {
+                         $class='';
+                     if($current_page==$i){
+                        $class='active';
+                     }
+                 ?>
+                <li class="page-item <?php echo $class?>">
+                    <a class="page-link" href="<?php echo get_site_url('user.php?page='.$i); ?>">
+                        <?php echo $i; ?></a>
+                    </a>
+                </li>
+                <?php } ?>
+                <?php
+                if($current_page >= $total_page) {
+                $disable_next = 'disable';
+                } else {
+                $disable_next = 'active';
+                }
+                ?>
+                <li class="page-item <?php echo $disable_next ?>">
 
-                <li class="page-item ">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item ">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item ">
-                    <a class="page-link" href="#">3</a>
-                </li>
+                    <a class="page-link" href="<?php echo $next_page_url ?>" aria-label="Next">
 
-                <li class="page-item ">
-                    <a class="page-link" href="" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                     </a>
